@@ -89,4 +89,7 @@ var pinMain = document.querySelector('.map__pin--main');
 pinMain.addEventListener('mousedown', mainPinClickHandler);
 pinMain.addEventListener('keydown', mainPinClickHandler);
 
+// Установить координаты в адрес
+document.querySelector('#address').value = pinMain.offsetLeft + ', ' + pinMain.offsetTop;
+
 
