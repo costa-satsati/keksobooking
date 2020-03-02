@@ -92,4 +92,25 @@ pinMain.addEventListener('keydown', mainPinClickHandler);
 // Установить координаты в адрес
 document.querySelector('#address').value = pinMain.offsetLeft + ', ' + pinMain.offsetTop;
 
+// Валидация числа комнат и гостей
+var validateRoomCapacity = function () {
+
+    if (capacity.value !== roomNumber.value) {
+        capacity.setCustomValidity('Количество комнат не соответствует Количество мест!');
+    } else {
+        capacity.setCustomValidity("");
+    }
+
+    adForm.reportValidity();
+
+};
+var roomNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
+
+
+
+capacity.addEventListener('change', validateRoomCapacity);
+roomNumber.addEventListener('change', validateRoomCapacity);
+
+
 
