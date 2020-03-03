@@ -42,7 +42,7 @@
     };
 
     window.data = {
-        generatesSimilarListings: generatesSimilarListings
+        listingObjects: generatesSimilarListings()
     };
 
 })();

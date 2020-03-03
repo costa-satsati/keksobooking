@@ -14,11 +14,10 @@
             (evt.button === 0 || evt.key === 'Enter')) {
             mapElement.classList.remove('map--faded');
             adForm.classList.remove('ad-form--disabled')
-            var fragment = document.createDocumentFragment();
-            var mockListings = window.data.generatesSimilarListings();
+            var fragment = document.createDocumentFragment();         
 
-            for (var i = 0; i < mockListings.length; i++) {
-                fragment.appendChild(window.pin.renderListing(mockListings[i]));
+            for (var i = 0; i < window.data.listingObjects.length; i++) {
+                fragment.appendChild(window.pin.renderListing(window.data.listingObjects[i]));
             }
             similarListingElement.appendChild(fragment);
 
@@ -26,6 +25,7 @@
             for (var i = 0; i < adFormElements.length; i++) {
                 adFormElements[i].disabled = false;
             }
+                     
         }
     };
 
