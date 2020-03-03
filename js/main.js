@@ -95,7 +95,7 @@ document.querySelector('#address').value = pinMain.offsetLeft + ', ' + pinMain.o
 // Валидация числа комнат и гостей
 var validateRoomCapacity = function () {
 
-    if (capacity.value !== roomNumber.value) {
+    if (capacity.value > roomNumber.value) {
         capacity.setCustomValidity('Количество комнат не соответствует Количество мест!');
     } else {
         capacity.setCustomValidity("");
