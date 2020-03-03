@@ -17,7 +17,7 @@
             var fragment = document.createDocumentFragment();         
 
             for (var i = 0; i < window.data.listingObjects.length; i++) {
-                fragment.appendChild(window.pin.renderListing(window.data.listingObjects[i]));
+                fragment.appendChild(window.pin.renderListing(window.data.listingObjects[i], i));
             }
             similarListingElement.appendChild(fragment);
 

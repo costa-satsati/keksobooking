@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    
+
     var similarListingElement = document.querySelector('.map__pins');
     var cardTemplate = document.querySelector('#card')
         .content
@@ -14,17 +14,30 @@
 
         cardElement.querySelector('.popup__avatar').src = listing.author.avatar;
         cardElement.querySelector('.popup__title').text = listing.offer.title;
-        
+
         return cardElement;
     };
 
-    var destroyPopup = function(evt){
+    var destroyPopup = function (evt) {
         evt.target.parentNode.remove();
     };
 
-    window.card = {
-        renderCard: renderCard
-    };
+    var displayPopup = function (evt) {
+        var mapCard = document.querySelector('.map__card');
+        var index = evt.target.parentNode.dataset.indexNumber;
 
+        if (mapCard) {
+            mapCard.remove();
+        }
+
+        //отрисуй карточку
+        if (index) {
+            similarListingElement.after(renderCard(window.data.listingObjects[index]));
+        }
+    }
+
+    window.card = {
+        displayPopup: displayPopup
+    };
 
 })();
