@@ -13,7 +13,7 @@
         popupClose.addEventListener('click', destroyPopup);
 
         cardElement.querySelector('.popup__avatar').src = listing.author.avatar;
-        cardElement.querySelector('.popup__title').text = listing.offer.title;
+        cardElement.querySelector('.popup__title').textContent = listing.offer.title;
 
         return cardElement;
     };
