@@ -3,6 +3,7 @@
 
     var pinMain = document.querySelector('.map__pin--main');
     var adForm = document.querySelector('.ad-form');
+    var formReset = document.querySelector('.ad-form__reset');
     var adFormElements = adForm.querySelectorAll('fieldset');
     var roomNumber = document.querySelector('#room_number');
     var capacity = document.querySelector('#capacity');
@@ -35,6 +36,11 @@
 
     capacity.addEventListener('change', validateRoomCapacity);
     roomNumber.addEventListener('change', validateRoomCapacity);
+
+    formReset.addEventListener('click', function(){
+        adForm.reset();
+    });
+   
 
     window.form = {
         setFormAddress: setFormAddress
