@@ -7,6 +7,8 @@
     var adFormElements = adForm.querySelectorAll('fieldset');
     var roomNumber = document.querySelector('#room_number');
     var capacity = document.querySelector('#capacity');
+    var avatarUpload = document.querySelector('#avatar');
+    var avatarImage = document.querySelector('.ad-form-header__preview img');
 
     for (var i = 0; i < adFormElements.length; i++) {
         adFormElements[i].disabled = true;
@@ -37,10 +39,16 @@
     capacity.addEventListener('change', validateRoomCapacity);
     roomNumber.addEventListener('change', validateRoomCapacity);
 
-    formReset.addEventListener('click', function(){
+    formReset.addEventListener('click', function () {
         adForm.reset();
     });
-   
+
+    avatarUpload.addEventListener('change', function () {
+        if (avatarUpload.files && avatarUpload.files[0]) {
+            avatarImage.src = URL.createObjectURL(avatarUpload.files[0]);
+        }
+    });
+
 
     window.form = {
         setFormAddress: setFormAddress
