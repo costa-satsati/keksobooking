@@ -1,5 +1,5 @@
+'use strict';
 (function () {
-    'use strict';
 
     var pinMain = document.querySelector('.map__pin--main');
     var adForm = document.querySelector('.ad-form');
@@ -11,8 +11,14 @@
         adFormElements[i].disabled = true;
     }
 
+    var setFormAddress = function (left, top) {
+        document.querySelector('#address').value = left + ', ' + top;
+    };
+
     // Установить координаты в адрес
-    document.querySelector('#address').value = pinMain.offsetLeft + ', ' + pinMain.offsetTop;
+    setFormAddress(pinMain.offsetLeft, pinMain.offsetTop);
+
+
 
     // Валидация числа комнат и гостей
     var validateRoomCapacity = function () {
@@ -29,6 +35,10 @@
 
     capacity.addEventListener('change', validateRoomCapacity);
     roomNumber.addEventListener('change', validateRoomCapacity);
+
+    window.form = {
+        setFormAddress: setFormAddress
+    };
 
 })();
 
