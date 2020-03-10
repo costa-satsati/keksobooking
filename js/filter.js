@@ -4,7 +4,7 @@
     var similarListingElement = document.querySelector('.map__pins');
     var filterForm = document.querySelector('.map__filters');
     var filterType = document.querySelector('#housing-type');
-
+    var filterRooms = document.querySelector('#housing-rooms');
 
 
     var render = function (listings) {
@@ -41,13 +41,20 @@
     window.load(successHandler, errorHandler);
 
     filterForm.addEventListener('change', function (evt) {
-        // очистить карту 
+        var mapCard = document.querySelector('.map__card');
+
+        if (mapCard) {
+            mapCard.remove();
+        }
+
+        // очистить карту от всех обьявлений
         document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (el) {
             el.remove();
-        });
+        });     
 
         render(window.data.listingObjects.filter(function (el) {
-            return el.offer.type === filterType.value;
+            return (filterType.value === 'any' ? true : el.offer.type === filterType.value) &&
+                (filterRooms.value === 'any' ? true : el.offer.rooms == filterRooms.value);
         }));
 
     });
