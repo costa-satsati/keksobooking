@@ -37,15 +37,13 @@
         if (mapFadedElement !== null &&
             (evt.button === 0 || evt.key === 'Enter')) {
             mapElement.classList.remove('map--faded');
-            adForm.classList.remove('ad-form--disabled')
+            adForm.classList.remove('ad-form--disabled');
             
             // загрузить данные сервера
              window.load(successHandler, errorHandler);         
 
             // enable ad form elements
-            for (var i = 0; i < adFormElements.length; i++) {
-                adFormElements[i].disabled = false;
-            }
+           window.form.setEnabledForm(false);
 
         }
     };

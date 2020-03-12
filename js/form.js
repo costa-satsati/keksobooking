@@ -1,8 +1,10 @@
 'use strict';
 (function () {
-
+    var MAIN_PIN_LOCATION = 'left: 570px; top: 375px;';
+    var mapElement = document.querySelector('.map');
     var pinMain = document.querySelector('.map__pin--main');
     var adForm = document.querySelector('.ad-form');
+    var filterForm = document.querySelector('.map__filters');
     var formReset = document.querySelector('.ad-form__reset');
     var adFormElements = adForm.querySelectorAll('fieldset');
     var roomNumber = document.querySelector('#room_number');
@@ -14,9 +16,13 @@
         ERROR: 400
     };
 
-    for (var i = 0; i < adFormElements.length; i++) {
-        adFormElements[i].disabled = true;
-    }
+    var setEnabledForm = function (flag) {
+        for (var i = 0; i < adFormElements.length; i++) {
+            adFormElements[i].disabled = flag;
+        }
+    };
+
+    setEnabledForm(true);
 
     var setFormAddress = function (left, top) {
         document.querySelector('#address').value = left + ', ' + top;
@@ -43,9 +49,24 @@
     capacity.addEventListener('change', validateRoomCapacity);
     roomNumber.addEventListener('change', validateRoomCapacity);
 
-    formReset.addEventListener('click', function () {
+    var resetScreen = function () {
         adForm.reset();
-    });
+        filterForm.reset();
+        setEnabledForm(true);
+        mapElement.classList.add('map--faded');
+        adForm.classList.add('ad-form--disabled');
+        // вернуть координаты main pin
+        pinMain.style = MAIN_PIN_LOCATION;
+        setFormAddress(pinMain.offsetLeft, pinMain.offsetTop);
+
+         // очистить карту от всех обьявлений
+         document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (el) {
+            el.remove();
+        });
+
+    };
+
+    formReset.addEventListener('click', resetScreen);
 
     avatarUpload.addEventListener('change', function () {
         if (avatarUpload.files && avatarUpload.files[0]) {
@@ -71,7 +92,8 @@
 
 
     window.form = {
-        setFormAddress: setFormAddress
+        setFormAddress: setFormAddress,
+        setEnabledForm: setEnabledForm
     };
 
 })();
