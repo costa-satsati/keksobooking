@@ -6,7 +6,30 @@
     var adForm = document.querySelector('.ad-form');
     var adFormElements = adForm.querySelectorAll('fieldset');
 
-   
+    var successHandler = function (listings) {       
+        // добавить id к каждому обьявлению
+        window.data.listingObjects = listings.map(function (el, index) {
+            el.id = index;
+            return el;
+        });
+
+        // отрисовать обьявления
+        window.filter.render(window.data.listingObjects);
+    };
+
+    var errorHandler = function (errorMessage) {
+        var node = document.createElement('div');
+        node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+        node.style.position = 'absolute';
+        node.style.left = 0;
+        node.style.right = 0;
+        node.style.fontSize = '30px';
+
+        node.textContent = errorMessage;
+        document.body.insertAdjacentElement('afterbegin', node);
+    };
+
+    
 
     var mainPinClickHandler = function (evt) {
         var mapFadedElement = document.querySelector('.map--faded');
@@ -16,8 +39,8 @@
             mapElement.classList.remove('map--faded');
             adForm.classList.remove('ad-form--disabled')
             
-            // отрисовать обьявления
-            window.filter.render(window.data.listingObjects);
+            // загрузить данные сервера
+             window.load(successHandler, errorHandler);         
 
             // enable ad form elements
             for (var i = 0; i < adFormElements.length; i++) {

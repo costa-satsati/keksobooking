@@ -17,37 +17,14 @@
     var render = function (listings) {
         var fragment = document.createDocumentFragment();
 
-        for (var i = 0; i < listings.length; i++) {
-            fragment.appendChild(window.pin.renderListing(listings[i], i));
+        for (var i = 0; i < (listings.length > 5 ? 5 : listings.length); i++) {
+            fragment.appendChild(window.pin.renderListing(listings[i]));
         }
         similarListingElement.appendChild(fragment);
 
     };
 
-    var successHandler = function (listings) {
-        // добавить id к каждому обьявлению
-        window.data.listingObjects = listings.map(function (el, index) {
-            el.id = index;
-            return el;
-        });
-    };
-
-    var errorHandler = function (errorMessage) {
-        var node = document.createElement('div');
-        node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-        node.style.position = 'absolute';
-        node.style.left = 0;
-        node.style.right = 0;
-        node.style.fontSize = '30px';
-
-        node.textContent = errorMessage;
-        document.body.insertAdjacentElement('afterbegin', node);
-    };
-
-    // загрузить данные сервера
-    window.load(successHandler, errorHandler);
-
-
+ 
     var isInPriceRange = function (range, price) {
         switch (range) {
             case PriceRange.LOW:

@@ -5,7 +5,7 @@
         .content
         .querySelector('.map__pin');
 
-    var renderListing = function (listing, index) {
+    var renderListing = function (listing) {
         var listingElement = pinTemplate.cloneNode(true);
 
         listingElement.querySelector('img').src = listing.author.avatar;
@@ -13,13 +13,11 @@
         listingElement.style.left = listing.location.x + 'px';
         listingElement.style.top = listing.location.y + 'px';
 
-        listingElement.dataset.indexNumber = index;
+        listingElement.dataset.indexNumber = listing.id;
         listingElement.addEventListener('click', window.card.displayPopup);
 
         return listingElement;
-    };
-
-    
+    };   
 
     window.pin = {
         renderListing: renderListing

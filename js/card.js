@@ -64,7 +64,10 @@
     var displayPopup = function (evt) {
         var mapCard = document.querySelector('.map__card');
         var activePin = document.querySelector('.map__pin--active');
-        var index = evt.target.parentNode.dataset.indexNumber;
+        var id = evt.target.parentNode.dataset.indexNumber;
+        var cardObject = window.data.listingObjects.find(function(el){
+            return el.id == id;
+        });
 
         if (activePin) {
             activePin.classList.remove('map__pin--active');
@@ -77,8 +80,8 @@
         evt.currentTarget.classList.add('map__pin--active');
 
         //отрисуй карточку
-        if (index) {
-            similarListingElement.after(renderCard(window.data.listingObjects[index]));
+        if (id) {
+            similarListingElement.after(renderCard(cardObject));
         }
     }
 
