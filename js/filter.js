@@ -28,37 +28,40 @@
   var isInPriceRange = function (range, price) {
     switch (range) {
       case PriceRange.LOW:
-        if (price > 0 && price <= 10000) {
-          return true;
-        } else {
-          return false;
-        }
+        return price > 0 && price <= 10000
       case PriceRange.MIDDLE:
-        if (price >= 10000 && price <= 50000) {
-          return true;
-        } else {
-          return false;
-        }
+        return price >= 10000 && price <= 50000
       case PriceRange.HIGH:
-        if (price >= 50000) {
-          return true;
-        } else {
-          return false;
-        }
+        return price >= 50000
       default:
         return false;
     }
+  };
+
+  var matchFilter = function (el) {
+
+    // массив из выбранных в фильтре удобств
+    var selectedFeatures = Array.from(document.querySelectorAll('#housing-features input[name=features]:checked'))
+      .map(function (el) {
+        return el.value;
+      });
+      
+    // условия фильтров
+    var conditionType = filterType.value === 'any' ? true : el.offer.type === filterType.value;
+    var conditionPrice = filterPrice.value === 'any' ? true : isInPriceRange(filterPrice.value, el.offer.price);
+    var conditionGuests = filterGuests.value === 'any' ? true : el.offer.guests.toString() === filterGuests.value;
+    var conditionRooms = filterRooms.value === 'any' ? true : el.offer.rooms.toString() === filterRooms.value;
+    var conditionFeatures = selectedFeatures.length > 0 ? selectedFeatures.every(function (val) {
+      return el.offer.features.includes(val);
+    }) : true;
+
+    return conditionType && conditionPrice && conditionGuests && conditionRooms && conditionFeatures;
   };
 
 
   var updateListings = function () {
     var mapCard = document.querySelector('.map__card');
     var filteredListings = [];
-    // массив из выбранных в фильтре удобств
-    var selectedFeatures = Array.from(document.querySelectorAll('#housing-features input[name=features]:checked'))
-      .map(function (el) {
-        return el.value;
-      });
 
     if (mapCard) {
       mapCard.remove();
@@ -69,18 +72,15 @@
       el.remove();
     });
 
-    filteredListings = window.data.listingObjects.filter(function (el) {
-      // условия фильтров
-      var conditionType = filterType.value === 'any' ? true : el.offer.type === filterType.value;
-      var conditionPrice = filterPrice.value === 'any' ? true : isInPriceRange(filterPrice.value, el.offer.price);
-      var conditionGuests = filterGuests.value === 'any' ? true : el.offer.guests.toString() === filterGuests.value;
-      var conditionRooms = filterRooms.value === 'any' ? true : el.offer.rooms.toString() === filterRooms.value;
-      var conditionFeatures = selectedFeatures.length > 0 ? selectedFeatures.every(function (val) {
-        return el.offer.features.includes(val);
-      }) : true;
+    for (var i = 0; i < window.data.listingObjects.length; i++) {
+      if (matchFilter(window.data.listingObjects[i])) {
+        filteredListings.push(window.data.listingObjects[i]);
+      }
 
-      return conditionType && conditionPrice && conditionGuests && conditionRooms && conditionFeatures;
-    });
+      if (filteredListings.length === 5) {
+        break;
+      }
+    }
 
     render(filteredListings);
   };
