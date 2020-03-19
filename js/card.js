@@ -13,7 +13,8 @@
     var popupFeatures = cardElement.querySelector('.popup__features');
     var popupPhotos = cardElement.querySelector('.popup__photos');
 
-    popupClose.addEventListener('click', destroyPopup);
+    popupClose.addEventListener('click', onCardClose);
+    document.addEventListener('keydown', onCardClose);
 
     cardElement.querySelector('.popup__avatar').src = listing.author.avatar;
     cardElement.querySelector('.popup__title').textContent = listing.offer.title;
@@ -57,11 +58,18 @@
     return fragment;
   };
 
-  var destroyPopup = function (evt) {
-    evt.target.parentNode.remove();
+  var onCardClose = function (evt) {
+    var mapCard = document.querySelector('.map__card');
+    var activePin = document.querySelector('.map__pin--active');
+
+    if (mapCard && (evt.key === 'Escape' || evt.type === 'click')) {
+      mapCard.remove(); 
+      activePin.classList.remove('map__pin--active');    
+      document.removeEventListener('keydown', onCardClose);
+    }
   };
 
-  var displayPopup = function (evt) {
+  var onCardDisplay = function (evt) {
     var mapCard = document.querySelector('.map__card');
     var activePin = document.querySelector('.map__pin--active');
     var index = evt.target.parentNode.dataset.indexNumber;
@@ -84,7 +92,7 @@
   };
 
   window.card = {
-    displayPopup: displayPopup
+    onCardDisplay: onCardDisplay
   };
 
 })();

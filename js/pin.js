@@ -17,7 +17,7 @@
     listingElement.style.top = (listing.location.y - PIN_HEIGHT) + 'px';
 
     listingElement.dataset.indexNumber = listing.id;
-    listingElement.addEventListener('click', window.card.displayPopup);
+    listingElement.addEventListener('click', window.card.onCardDisplay);
 
     return listingElement;
   };
