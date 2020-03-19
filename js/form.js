@@ -126,12 +126,17 @@
     });
 
     var onResetScreen = function () {
+        var mapCard = document.querySelector('.map__card');
         adForm.reset();
         filterForm.reset();
         avatarImage.src = AVATAR_PLACEHOLDER;
         setEnabled(true);
         mapElement.classList.add('map--faded');
         adForm.classList.add('ad-form--disabled');
+
+        if(mapCard){
+            mapCard.remove();
+        }
 
         // очистить картинки
         if (document.querySelector('.ad-form__photo--uploaded')){
