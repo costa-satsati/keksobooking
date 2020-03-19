@@ -1,8 +1,5 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
-* Студент: [Сергей Аликов](https://up.htmlacademy.ru/javascript/19/user/1087179).
-* Наставник:[Евгений Щеколдин](https://htmlacademy.ru/profile/id861059).
-
 ---
 
 _Не удаляйте и не обращайте внимание на файлы:_<br>
