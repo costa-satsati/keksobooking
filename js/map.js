@@ -2,6 +2,7 @@
 (function () {
 
   var mapElement = document.querySelector('.map');
+  var mapPins = document.querySelector('.map__pins');
   var pinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
 
@@ -52,6 +53,10 @@
   // перетаскивание
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+    var HEIGHT_LIMIT = {
+      MIN:130,
+      MAX:630
+    };
 
     var startCoords = {
       x: evt.clientX,
@@ -66,15 +71,23 @@
         y: startCoords.y - moveEvt.clientY
       };
 
+      var topCoord, leftCoord;
+
       startCoords = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
 
-      pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
-      pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
+    
+      topCoord = Math.max(HEIGHT_LIMIT.MIN, Math.min(pinMain.offsetTop - shift.y, HEIGHT_LIMIT.MAX));
+      leftCoord = Math.max(0, Math.min(pinMain.offsetLeft - shift.x, mapPins.offsetWidth - pinMain.offsetWidth));
 
-      window.form.setFormAddress(pinMain.offsetLeft, pinMain.offsetTop);
+      console.log(topCoord,leftCoord); 
+
+      pinMain.style.top = topCoord  + 'px';
+      pinMain.style.left = leftCoord + 'px';
+
+      window.form.setFormAddress(pinMain.offsetLeft - Math.floor( pinMain.offsetWidth / 2), pinMain.offsetTop - pinMain.offsetHeight);
 
     };
 
