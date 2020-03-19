@@ -42,7 +42,7 @@
       window.ajax.load(successHandler, errorHandler);
 
       // enable ad form elements
-      window.form.setEnabledForm(false);
+      window.form.setEnabled(false);
 
     }
   };
@@ -86,7 +86,7 @@
       pinMain.style.top = topCoord  + 'px';
       pinMain.style.left = leftCoord + 'px';
 
-      window.form.setFormAddress(pinMain.offsetLeft - Math.floor( pinMain.offsetWidth / 2), pinMain.offsetTop - pinMain.offsetHeight);
+      window.form.setAddress(pinMain.offsetLeft - Math.floor( pinMain.offsetWidth / 2), pinMain.offsetTop - pinMain.offsetHeight);
 
     };
 

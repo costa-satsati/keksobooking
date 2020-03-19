@@ -33,7 +33,7 @@
     var listingPhotoTemplate = document.querySelector('.ad-form__photo').cloneNode();
 
     // блокирует елементы форм     
-    var setEnabledForm = function (flag) {
+    var setEnabled = function (flag) {
         var filterElements = filterForm.children;
 
         for (var i = 0; i < adFormElements.length; i++) {
@@ -45,14 +45,14 @@
         }
     };
 
-    setEnabledForm(true);
+    setEnabled(true);
 
-    var setFormAddress = function (left, top) {
+    var setAddress = function (left, top) {
         address.value = left + ', ' + top;
     };
 
     // Установить координаты в адрес
-    setFormAddress(pinMain.offsetLeft, pinMain.offsetTop);
+    setAddress(pinMain.offsetLeft, pinMain.offsetTop);
 
 
     var validateRoomCapacity = function () {
@@ -129,7 +129,7 @@
         adForm.reset();
         filterForm.reset();
         avatarImage.src = AVATAR_PLACEHOLDER;
-        setEnabledForm(true);
+        setEnabled(true);
         mapElement.classList.add('map--faded');
         adForm.classList.add('ad-form--disabled');
 
@@ -142,7 +142,7 @@
 
         // вернуть координаты main pin
         pinMain.style = MAIN_PIN_LOCATION;
-        setFormAddress(pinMain.offsetLeft, pinMain.offsetTop);
+        setAddress(pinMain.offsetLeft, pinMain.offsetTop);
 
         // очистить карту от всех обьявлений
         document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (el) {
@@ -227,8 +227,8 @@
 
 
     window.form = {
-        setFormAddress: setFormAddress,
-        setEnabledForm: setEnabledForm
+        setAddress: setAddress,
+        setEnabled: setEnabled
     };
 
 })();
