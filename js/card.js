@@ -69,7 +69,7 @@
     }
   };
 
-  var displayPopup = function (evt) {
+  var onCardDisplay = function (evt) {
     var mapCard = document.querySelector('.map__card');
     var activePin = document.querySelector('.map__pin--active');
     var index = evt.target.parentNode.dataset.indexNumber;
@@ -92,7 +92,7 @@
   };
 
   window.card = {
-    displayPopup: displayPopup
+    onCardDisplay: onCardDisplay
   };
 
 })();

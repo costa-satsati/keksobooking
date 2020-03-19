@@ -7,7 +7,7 @@
   var adForm = document.querySelector('.ad-form');
 
 
-  var successHandler = function (listings) {
+  var onSuccess = function (listings) {
     // добавить id к каждому обьявлению
     window.data.listingObjects = listings.map(function (el, index) {
       el.id = index;
@@ -18,7 +18,7 @@
     window.filter.render(window.data.listingObjects);
   };
 
-  var errorHandler = function (errorMessage) {
+  var onError = function (errorMessage) {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
@@ -30,7 +30,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var mainPinClickHandler = function (evt) {
+  var onMainPinClick = function (evt) {
     var mapFadedElement = document.querySelector('.map--faded');
 
     if (mapFadedElement !== null &&
@@ -39,7 +39,7 @@
       adForm.classList.remove('ad-form--disabled');
 
       // загрузить данные сервера
-      window.ajax.load(successHandler, errorHandler);
+      window.ajax.load(onSuccess, onError);
 
       // enable ad form elements
       window.form.setEnabled(false);
@@ -47,8 +47,8 @@
     }
   };
 
-  pinMain.addEventListener('mousedown', mainPinClickHandler);
-  pinMain.addEventListener('keydown', mainPinClickHandler);
+  pinMain.addEventListener('mousedown', onMainPinClick);
+  pinMain.addEventListener('keydown', onMainPinClick);
 
   // перетаскивание
   pinMain.addEventListener('mousedown', function (evt) {

@@ -55,7 +55,7 @@
     setAddress(pinMain.offsetLeft, pinMain.offsetTop);
 
 
-    var validateRoomCapacity = function () {
+    var onValidateRoomCapacity = function () {
         if (capacity.value <= roomNumber.value) {
             capacity.setCustomValidity('');
         } else {
@@ -66,8 +66,8 @@
     };
 
 
-    capacity.addEventListener('change', validateRoomCapacity);
-    roomNumber.addEventListener('change', validateRoomCapacity);
+    capacity.addEventListener('change', onValidateRoomCapacity);
+    roomNumber.addEventListener('change', onValidateRoomCapacity);
 
     // загрузка аватарки
     avatarUpload.addEventListener('change', function () {
@@ -125,7 +125,7 @@
         timein.value = timeout.value;
     });
 
-    var resetScreen = function () {
+    var onResetScreen = function () {
         adForm.reset();
         filterForm.reset();
         avatarImage.src = AVATAR_PLACEHOLDER;
@@ -151,7 +151,7 @@
 
     };
 
-    formReset.addEventListener('click', resetScreen);
+    formReset.addEventListener('click', onResetScreen);
 
     // обработчики попап
     var onPopupClick = function () {
@@ -160,12 +160,12 @@
 
         if (successDiv !== null) {
             successDiv.remove();
-            resetScreen();
+            onResetScreen();
         }
 
         if (errorDiv !== null) {
             errorDiv.remove();
-            resetScreen();
+            onResetScreen();
         }
 
         document.body.removeEventListener('click', onPopupClick);
@@ -178,12 +178,12 @@
 
         if (evt.key === 'Escape' && successDiv !== null) {
             successDiv.remove();
-            resetScreen();
+            onResetScreen();
         }
 
         if (evt.key === 'Escape' && errorDiv !== null) {
             errorDiv.remove();
-            resetScreen();
+            onResetScreen();
         }
 
         document.body.removeEventListener('click', onPopupClick);
@@ -196,7 +196,7 @@
 
         if (errorDiv !== null) {
             errorDiv.remove();
-            resetScreen();
+            onResetScreen();
         }
 
         document.body.removeEventListener('click', onPopupClick);
