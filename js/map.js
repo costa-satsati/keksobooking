@@ -82,7 +82,6 @@
       topCoord = Math.max(HEIGHT_LIMIT.MIN, Math.min(pinMain.offsetTop - shift.y, HEIGHT_LIMIT.MAX));
       leftCoord = Math.max(0, Math.min(pinMain.offsetLeft - shift.x, mapPins.offsetWidth - pinMain.offsetWidth));
 
-      console.log(topCoord,leftCoord); 
 
       pinMain.style.top = topCoord  + 'px';
       pinMain.style.left = leftCoord + 'px';

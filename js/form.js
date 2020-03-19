@@ -121,44 +121,78 @@
 
     formReset.addEventListener('click', resetScreen);
 
-    adForm.addEventListener('submit', function (evt) {
-        window.ajax.upload(new FormData(adForm), function (xhr) {
-            switch (xhr.status) {
-                case Code.OK:
-                    document.querySelector('main').appendChild(successTemplate.cloneNode(true));
-                    break;
-                case Code.ERROR:
-                    document.querySelector('main').appendChild(errorTemplate.cloneNode(true));
-                    break;
-            }
-        });
-        evt.preventDefault();
-    });
-
-    document.body.addEventListener('click', function () {
+    // обработчики попап
+    var onPopupClick = function () {
         var successDiv = document.querySelector('.success');
+        var errorDiv = document.querySelector('.error');
 
         if (successDiv !== null) {
             successDiv.remove();
             resetScreen();
         }
-    });
+
+        if (errorDiv !== null) {
+            errorDiv.remove();
+            resetScreen();
+        }
+
+        document.body.removeEventListener('click', onPopupClick);
+        document.removeEventListener('keydown', onPopupEscPress);
+    };
 
     var onPopupEscPress = function (evt) {
         var successDiv = document.querySelector('.success');
-        var mapCard = document.querySelector('.map__card');
+        var errorDiv = document.querySelector('.error');
 
         if (evt.key === 'Escape' && successDiv !== null) {
             successDiv.remove();
             resetScreen();
         }
 
-        if (evt.key === 'Escape' && mapCard !== null) {
-            mapCard.remove();
+        if (evt.key === 'Escape' && errorDiv !== null) {
+            errorDiv.remove();
+            resetScreen();
         }
+
+        document.body.removeEventListener('click', onPopupClick);
+        document.removeEventListener('keydown', onPopupEscPress);
+       
     };
 
-    document.addEventListener('keydown', onPopupEscPress);
+    var onErrorButtonClick =  function (evt) {
+        var errorDiv = document.querySelector('.error');
+
+        if (errorDiv !== null) {
+            errorDiv.remove();
+            resetScreen();
+        }
+
+        document.body.removeEventListener('click', onPopupClick);
+        document.removeEventListener('keydown', onPopupEscPress);
+       
+    };
+
+
+
+    adForm.addEventListener('submit', function (evt) {
+        window.ajax.upload(new FormData(adForm), function (xhr) {
+            switch (xhr.status) {
+                case Code.OK:
+                    document.querySelector('main').appendChild(successTemplate.cloneNode(true));
+                    document.body.addEventListener('click', onPopupClick);
+                    document.addEventListener('keydown', onPopupEscPress);
+                    break;
+                case Code.ERROR:
+                    document.querySelector('main').appendChild(errorTemplate.cloneNode(true));
+                    document.body.addEventListener('click', onPopupClick);
+                    document.addEventListener('keydown', onPopupEscPress);
+                    document.querySelector('.error__button').addEventListener('click', onErrorButtonClick);
+                    break;
+            }
+        });
+        evt.preventDefault();
+    });
+  
 
     window.form = {
         setFormAddress: setFormAddress,
